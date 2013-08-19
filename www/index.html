@@ -29,7 +29,6 @@
 
     // The watch id references the current `watchAcceleration`
     var watchID = null;
-    
 
     // Wait for device API libraries to load
     //
@@ -38,18 +37,17 @@
     // device APIs are available
     //
     function onDeviceReady() {
-        startWatch();   
+        startWatch();
     }
 
     // Start watching the acceleration
     //
     function startWatch() {
 
-        // Update acceleration every 0.01 seconds
-        var options = { frequency: 10 };
+        // Update acceleration every 3 seconds
+        var options = { frequency: 3000 };
 
         watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-
     }
 
     // Stop watching the acceleration
@@ -65,87 +63,19 @@
     //
     function onSuccess(acceleration) {
         var element = document.getElementById('accelerometer');
-	var x = acceleration.x.toFixed(2) ;
-	var y = acceleration.y.toFixed(2) ; 
-	var k =140; //x
-	var h =160; //y
 
-
-		
-	var canvas = document.getElementById( "c" ),
-	ctx = canvas.getContext( "2d" );
-	
-
-	
-       /* element.innerHTML = 'Acceleration X: ' + x + '<br />' +
-                            'Acceleration Y: ' + y + '<br />' +
-                            'Acceleration Z: ' + acceleration.z.toFixed(2) + '<br />' +
+        element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
+                            'Acceleration Y: ' + acceleration.y + '<br />' +
+                            'Acceleration Z: ' + acceleration.z + '<br />' +
                             'Timestamp: '      + acceleration.timestamp + '<br />';
-        */
-                      
-        /* 
-        element.innerHTML = 'Acceleration X: ' + x + '<br />' +
-                            'Acceleration Y: ' + y + '<br />' ;
-         */
-                            
-		
-	x=(x*15).toFixed(2);
-	y=(y*15).toFixed(2);
-	
-	y=(y*(-1));
-	if(x>0){
-		k=(k-x);
-		if(y>0){
-			h=h-y;
-		}
-		else{
-			h=h-y;
-		}
-	}
-	
-	if(x<0){
-		k=(k-x);
-		if(y>0){
-			h=h-y;
-		}
-		else{
-			h=h-y;
-		}
-	}
-	
-	/*	element.innerHTML = 'K: ' + k + '  '+'X: '+ x +'<br />' +
-                            'H: ' + h + '  '+'Y: '+ y +'<br />' ;
-	*/
-		
-		ctx.lineWidth = 5;
-		
-		// Clear Circle //
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		
-		// Big Circle
-		
-		
-		
-		//ctx.beginPath();
-		//ctx.arc( 140, 160, 300, 0, 2 * Math.PI, false );
-
-		// Draw Circle //
-		ctx.beginPath();
-		ctx.arc( k, h, 30, 0, 2 * Math.PI, false );
-		ctx.fillStyle = "#f00";
-		ctx.fill();
-		ctx.strokeStyle = "DarkRed";
-		ctx.stroke();
-		
-		
     }
-    
 
     // onError: Failed to get the acceleration
     //
     function onError() {
         alert('onError!');
     }
+
 
 
     </script>
